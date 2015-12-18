@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="pforsterApp">
+	<head>
+		<meta charset="utf-8" />
+
+		<title>Pascal Forster</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="libs/angular-bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="/styles/main.css" />
+		<link rel="stylesheet" href="/styles/quiz/insert.css" />
+	</head>
+	<body ng-controller="PforsterCtrl">
+		<div role="navigation" class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">Project name</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#about">About</a>
+						</li>
+						<li>
+							<a href="#contact">Contact</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div ng-view></div>
+			
+			<hr />
+			<div class="footer">
+			 	<p>&copy; Pascal Forster 2013</p>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="/libs/angular/angular.js"></script>
+		<script type="text/javascript" src="/libs/angular-bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+		<script type="text/javascript" src="/libs/angular-route/angular-route.js"></script>
+		<script type="text/javascript" src="/libs/flow/ng-flow-standalone.js"></script>
+		<script type="text/javascript" src="/scripts/pforsterApp.js"></script>
+		<script type="text/javascript" src="/scripts/controllers/PforsterCtrl.js"></script>
+		<script type="text/javascript" src="/scripts/controllers/QuizCtrl.js"></script>
+		<script type="text/javascript" src="/scripts/controllers/QuestionCtrl.js"></script>
+		<script type="text/javascript" src="/scripts/services/DataService.js"></script>
+		<script type="text/javascript" src="/scripts/services/QuestionService.js"></script>
+		<script type="text/javascript" src="/scripts/services/CategoryService.js"></script>
+		<script type="text/javascript" src="/scripts/directives/pfoAnswerDirective.js"></script>
+	</body>
+</html>
