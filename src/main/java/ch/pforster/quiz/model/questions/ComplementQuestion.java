@@ -25,7 +25,9 @@ public class ComplementQuestion extends AbstractQuestion {
 
 	@Override
 	public String getAnswer() {
-		// TODO Auto-generated method stub
-		return null;
+		if(answers == null) {
+			return null;
+		}
+		return String.join(",", answers);
 	}
 }

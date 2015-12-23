@@ -6,6 +6,10 @@ pforsterServices.service('DataService', ['$q', '$http', function ($q, $http) {
 		return getData("/category/all", true);
 	}
 	
+	function getQuestionsByCategoryAndMode(categoryId, mode) {
+		return getData("/question/all/" + categoryId + "/" + mode);
+	}
+	
 	function saveSimpleQuestion(question) {
 		return postData("/question/addQuestion/simple", question, true);
 	}
@@ -42,54 +46,9 @@ pforsterServices.service('DataService', ['$q', '$http', function ($q, $http) {
 		return deferred.promise;
 	}
 	
-	function postMultipartFormData(url, data) {
-		$http({
-            method: 'POST',
-            url: url,
-            headers: { 'Content-Type': false },
-            transformRequest: function (data) {
-                var formData = new FormData();
-//                formData.append("model", angular.toJson(data));
-                formData.append("file", data);
-                return formData;
-            },
-            //Create an object that contains the model and files which will be transformed
-            // in the above transformRequest method
-            data: data
-        }).
-        success(function (data, status, headers, config) {
-            alert("success!");
-        }).
-        error(function (data, status, headers, config) {
-            alert("failed!");
-        });
-	}
-	
-	function postFormData(url, data) {
-		var deferred = $q.defer();
-		
-		$http({
-			method : 'POST',
-			url : url,
-			headers : { 'Content-Type' : 'application/x-www-form-urlencoded'},
-			transformRequest : function(obj) {
-				var str = [];
-				for (var p in obj)
-				str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-				return str.join("&");
-			},
-			data : data
-		}).then(function(result) {
-			deferred.resolve(result);
-		}, function() {
-			deferred.reject("Unable to post data to: " + url);
-		});
-		
-		return deferred.promise;
-	}
-	
 	return {
 		getCategories : function() { return getCategories(); },
+		getQuestionsByCategoryAndMode : function(categoryId, mode) { return getQuestionsByCategoryAndMode(categoryId, mode); },
 		saveSimpleQuestion : function(question) { return saveSimpleQuestion(question); },
 		saveImageQuestion : function(question) { return saveImageQuestion(question); },
 		saveComplementQuestion : function(question) { return saveComplementQuestion(question); }

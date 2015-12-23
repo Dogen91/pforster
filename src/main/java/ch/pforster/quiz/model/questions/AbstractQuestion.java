@@ -9,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import ch.pforster.quiz.model.AnswerInfo;
 import ch.pforster.quiz.model.Category;
 
 @Entity
@@ -30,7 +32,8 @@ public abstract class AbstractQuestion {
 	@Basic(optional = false)
 	private String question;
 
-	private String helpText;
+	@OneToOne
+	private AnswerInfo answerInfo;
 
 	public Long getId() {
 		return id;
@@ -63,15 +66,14 @@ public abstract class AbstractQuestion {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-
-	public String getHelpText() {
-		return helpText;
+	
+	public AnswerInfo getAnswerInfo() {
+		return answerInfo;
 	}
 
-	public void setHelpText(String helpText) {
-		this.helpText = helpText;
+	public void setAnswerInfo(AnswerInfo answerInfo) {
+		this.answerInfo = answerInfo;
 	}
 
 	public abstract String getAnswer();
-
 }

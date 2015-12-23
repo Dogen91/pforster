@@ -1,3 +1,68 @@
 <div class="quiz">
-	
+	<div class="question" ng-repeat="question in questions" ng-if="$index == currentQuestionIndex">
+		<div class="simple-question" ng-if="question.type == 'SIMPLE'">
+			<div class="row">
+				<div class="col-xs-12">{{::question.question}}</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-10">
+					<input type="text" class="form-control" ng-model="userAnswer" ng-init="userAnswer = ''"/> 
+				</div>
+				<div class="col-xs-2">
+					<button type="button" class="btn btn-default" ng-init="helpCount = 0" ng-click="helpCount = helpCount + 1; help = checkTextAnswer(helpCount, question.answer, userAnswer);">Check</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					{{help}}
+				</div>
+			</div>
+		</div>
+		<div class="image-question" ng-if="question.type == 'IMAGE'">
+			<div class="row">
+				<div class="col-xs-12">{{::question.question}}</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12"><img src="/images/{{::question.id}}_{{::question.image.name}}" /></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-10">
+					<input type="text" class="form-control" ng-model="userAnswer" ng-init="userAnswer = ''"/> 
+				</div>
+				<div class="col-xs-2">
+					<button type="button" class="btn btn-default" ng-init="helpCount = 0" ng-click="helpCount = helpCount + 1; help = checkTextAnswer(helpCount, question.answer, userAnswer);">Check</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					{{help}}
+				</div>
+			</div>
+		</div>
+		<div class="complement-question" ng-if="question.type == 'COMPLEMENT'" ng-init="userAnswers = []; help = []">
+			<div class="row">
+				<div class="col-xs-12">{{::question.question}}</div>
+			</div>
+			<div ng-repeat="answer in question.answers">
+				<div class="row">
+					<div class="col-xs-12">
+						<input ng-disabled="question.answersToGive.indexOf(answer) < 0" type="text" class="form-control" ng-model="userAnswers[$index]" ng-init="userAnswers[$index] = question.answersToGive.indexOf(answer) < 0 ? answer : ''" /> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						{{help[$index]}}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-10">
+					
+				</div>
+				<div class="col-xs-2">
+					<button type="button" class="btn btn-default" ng-init="helpCount = 0" ng-click="helpCount = helpCount + 1; checkComplementAnswers(helpCount, help, question.answers, userAnswers);">Check</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

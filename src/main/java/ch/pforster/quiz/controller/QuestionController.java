@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.pforster.quiz.model.Mode;
 import ch.pforster.quiz.model.questions.AbstractQuestion;
 import ch.pforster.quiz.model.questions.ComplementQuestion;
 import ch.pforster.quiz.model.questions.ImageQuestion;
@@ -28,6 +29,13 @@ public class QuestionController {
     public QuestionController(QuestionService questionService) {
 		this.questionService = questionService;
 	}
+    
+    @RequestMapping(value = "/all/{categoryId}/{mode}", method = RequestMethod.GET)
+    public List<AbstractQuestion> getAllByCategoryAndMode(@PathVariable Long categoryId, @PathVariable String mode) {
+        Mode quizMode = Mode.valueOf(mode);
+    	
+        return questionService.getQuestionsByCategoryAndMode(categoryId, quizMode);
+    }
     
     @RequestMapping(value = "/addQuestion/simple", method = RequestMethod.POST)
     public SimpleQuestion addSimpleQuestion(@RequestBody SimpleQuestion simpleQuestion) {
@@ -50,9 +58,4 @@ public class QuestionController {
 
         return complementQuestion;
     }
-    
-    @RequestMapping(value="/category/{categoryId}", method=RequestMethod.GET)
-	public List<AbstractQuestion> getQuestionsByCategory(@PathVariable("categoryId") Long categoryId){
-		return questionService.getQuestionsByCategory(categoryId);
-	}
 }

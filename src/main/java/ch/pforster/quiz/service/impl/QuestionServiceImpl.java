@@ -1,8 +1,11 @@
 package ch.pforster.quiz.service.impl;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -11,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.pforster.quiz.model.AnswerInfo;
 import ch.pforster.quiz.model.Category;
 import ch.pforster.quiz.model.Media;
+import ch.pforster.quiz.model.Mode;
 import ch.pforster.quiz.model.questions.AbstractQuestion;
 import ch.pforster.quiz.model.questions.ComplementQuestion;
 import ch.pforster.quiz.model.questions.ImageQuestion;
@@ -111,15 +116,26 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public List<AbstractQuestion> getQuestionsByCategory(Long categoryId) {
-		List<AbstractQuestion> allQuestions = getAllQuestions();
-		List<AbstractQuestion> categoryQuestions = new LinkedList<>();
-		for (AbstractQuestion question : allQuestions) {
-			if (categoryId.equals(question.getCategory().getId())) {
-				categoryQuestions.add(question);
-			}
+	public List<AbstractQuestion> getQuestionsByCategoryAndMode(Long categoryId, Mode mode) {
+		List<SimpleQuestion> simpleQuestions = simpleQuestionRepository.findByCategoryId(categoryId);
+		List<ImageQuestion> imageQuestions = imageQuestionRepository.findByCategoryId(categoryId);
+		List<ComplementQuestion> complementQuestions = complementQuestionRepository.findByCategoryId(categoryId);
+		
+		List<AbstractQuestion> questionsByCategory = new LinkedList<>();
+		questionsByCategory.addAll(simpleQuestions);
+		questionsByCategory.addAll(imageQuestions);
+		questionsByCategory.addAll(complementQuestions);
+		
+		if(Mode.ALL.equals(mode)){
+			return questionsByCategory;
 		}
-		return categoryQuestions;
+		
+		return questionsByCategory.stream().filter(q -> questionNeedsRepetition(q.getAnswerInfo())).collect(Collectors.toList());
+	}
+	
+	private boolean questionNeedsRepetition(AnswerInfo answerInfo) {
+		Date now = Calendar.getInstance().getTime();
+		return answerInfo == null || answerInfo.getNextRepetition() == null || answerInfo.getNextRepetition().before(now);
 	}
 
 	private Category getCategory(Category category) {

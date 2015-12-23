@@ -3,6 +3,7 @@ package ch.pforster.quiz.service;
 import java.io.IOException;
 import java.util.List;
 
+import ch.pforster.quiz.model.Mode;
 import ch.pforster.quiz.model.questions.AbstractQuestion;
 import ch.pforster.quiz.model.questions.ComplementQuestion;
 import ch.pforster.quiz.model.questions.ImageQuestion;
@@ -24,5 +25,5 @@ public interface QuestionService {
 
 	public List<ComplementQuestion> getAllComplementQuestions();
 
-	public List<AbstractQuestion> getQuestionsByCategory(Long categoryId);
+	public List<AbstractQuestion> getQuestionsByCategoryAndMode(Long categoryId,  Mode mode);
 }

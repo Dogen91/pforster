@@ -1,0 +1,11 @@
+<div class="quiz-overview">
+	<div class="row" ng-repeat="category in categories">
+		<div class="col-xs-8">{{::category.name}}</div>
+		<div class="col-xs-2">
+			<a href="#/quiz/{{::category.id}}/REPETITION" class="btn btn-default">Auffrischen</a>
+		</div>
+		<div class="col-xs-2">
+			<a href="#/quiz/{{::category.id}}/ALL" class="btn btn-default">Alle</a>
+		</div>
+	</div>
+</div>

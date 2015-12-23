@@ -29,12 +29,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="helpText">Hilfetext</label>
-							<div class="col-sm-10">
-								<textarea rows="3" id="helpText" class="form-control" name="helpText" ng-model="simpleQuestion.helpText"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button class="btn btn-primary" ng-click="saveQuestion(simpleQuestion, 'simple')">Speichern</button>
 							</div>
@@ -78,14 +72,8 @@
 								    Drag And Drop Bild
 								</div>
 								<div>
-									<img flow-img="$flow.files[0]" width="100px"/>
+									<img flow-img="imageQuestion.imageUpload.files[0]" width="100px"/>
 								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="helpText">Hilfetext</label>
-							<div class="col-sm-10">
-								<textarea rows="3" id="helpText" class="form-control" name="helpText" ng-model="imageQuestion.helpText"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -119,12 +107,6 @@
 						<div class="form-group">
 							<div class="col-sm-10">
 								<button class="btn btn-default" id="addAnswer" ng-click="addAnswer()">Weitere Antwort</button>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="helpText">Hilfetext</label>
-							<div class="col-sm-10">
-								<textarea rows="3" id="helpText" class="form-control" name="helpText" ng-model="complementQuestion.helpText"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
